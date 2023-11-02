@@ -12,17 +12,33 @@ class search{
     lines
     startingPos
     EndingPos
-    Obstracles
+    current
+    actions = {
+        up: this.current[0] - 1,
+        down: this.current[0] + 1,
+        left: this.current[1] - 1,
+        right: this.current[1] + 1
+    }
+
     constructor(){
-        //this.initialParsing()
         this.lines = data.split("\n")
         this.rows = this.lines.length
         this.columns = this.lines[0].length
         this.matrix = this.lines.map(element => element.split(""))
+        this.initialParsing()
+        this.current = this.startingPos
     }
 
     initialParsing(){
-
+        for(let i=0;i<this.rows;i++){
+            for(let j=0;i<this.columns;i++){
+                if(this.matrix[i][j] == "A"){
+                    this.startingPos = [i,j]
+                }else if(this.matrix[i][j] == "B"){
+                    this.EndingPos = [i,j]
+                }
+            }
+        }
     }
 
     search(){
