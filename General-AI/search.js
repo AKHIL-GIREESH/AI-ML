@@ -27,7 +27,7 @@ class search{
         this.rows = this.lines.length
         this.columns = this.lines[0].length
         this.matrix = this.lines.map(element => element.split(""))
-        console.log(this.rows, this.columns,this.matrix[0][0])
+        //console.log(this.rows, this.columns,this.matrix[0][0])
         this.initialParsing()
         this.current = this.startingPos
         this.NavigationList.push(this.startingPos)
@@ -45,10 +45,27 @@ class search{
         }
     }
 
+    nextNodes(element){
+        if(this.matrix[element[0]][element[1]-1] !== "#"){
+            console.log("Way found")
+        }else if(this.matrix[element[0]-1][element[1]] !== "#"){
+            console.log("Way Found")
+        }
+    }
+
     search(){
-        this.NavigationList.length == 0?console.log("No Solution"):
-            console.log("Works")
+        if(this.NavigationList.length == 0)console.log("No Solution")
+        else{
+            let popped = this.NavigationList.pop()
+            if(popped === "B"){
+                console.log("Reached Destination")
+            }
+            this.nextNodes(popped)
+            this.ExploredList.push(popped)
+
+        }
 }
 }
 
 let a = new search().search()
+console.log(search)
