@@ -47,9 +47,9 @@ class search{
 
     nextNodes(element){
         if(this.matrix[element[0]][element[1]-1] !== "#"){
-            console.log("Way found")
+            this.NavigationList.push([element[0],element[1]-1])
         }else if(this.matrix[element[0]-1][element[1]] !== "#"){
-            console.log("Way Found")
+            this.NavigationList.push([element[0],element[1]-1])
         }
     }
 
