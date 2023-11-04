@@ -64,7 +64,7 @@ class search{
             this.ExploredList.push(popped)
 
         }
-}
+    }
 }
 
 let a = new search().search()
