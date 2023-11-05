@@ -29,16 +29,16 @@ class search{
         this.matrix = this.lines.map(element => element.split(""))
         //console.log(this.rows, this.columns,this.matrix[0][0])
         this.initialParsing()
-        this.current = this.startingPos
+        //this.current = this.startingPos
         this.NavigationList.push(this.startingPos)
     }
 
     initialParsing(){
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.columns;j++){
-                if(this.matrix[i][j] == 'A'){
+                if(this.matrix[i][j] === 'A'){
                     this.startingPos = [i,j]
-                }else if(this.matrix[i][j] == "B"){
+                }else if(this.matrix[i][j] === 'B'){
                     this.EndingPos = [i,j]
                 }
             }
@@ -46,26 +46,47 @@ class search{
     }
 
     nextNodes(element){
-        if(this.matrix[element[0]][element[1]-1] !== "#"){
+        // console.log(!this.ExploredList.includes(`${[element[0]+1,element[1]]}`))
+        // console.log(`${[element[0]+1,element[1]]}`)
+        if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
             this.NavigationList.push([element[0],element[1]-1])
-        }else if(this.matrix[element[0]-1][element[1]] !== "#"){
-            this.NavigationList.push([element[0],element[1]-1])
+        }if(element[0]-1>-1  && !this.ExploredList.includes(`${[element[0]-1,element[1]]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
+            this.NavigationList.push([element[0]-1,element[1]])
+        }if(element[0]+1<this.rows  && !this.ExploredList.includes(`${[element[0]+1,element[1]]}`)  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
+            this.NavigationList.push([element[0]+1,element[1]])
+        }if(element[1]+1<this.columns  && !this.ExploredList.includes(`${[element[0],element[1]+1]}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+            this.NavigationList.push([element[0],element[1]+1])
         }
     }
 
     search(){
-        if(this.NavigationList.length == 0)console.log("No Solution")
+        //console.log(this.current)
+        if(this.NavigationList.length == 0){
+            return "No Solution"
+        }
         else{
-            let popped = this.NavigationList.pop()
-            if(popped === "B"){
-                console.log("Reached Destination")
+            this.current = this.NavigationList.pop()
+            console.log("Current =",this.current)
+            if(this.current === this.EndingPos){
+                return "Reached Destination"
+            }else{
+            this.nextNodes(this.current)
+            this.ExploredList.push(`${this.current}`)
+            console.log(this.ExploredList)
+            console.log(this.NavigationList)
+            return "nil"
+            //this.search()
             }
-            this.nextNodes(popped)
-            this.ExploredList.push(popped)
 
         }
     }
 }
 
-let a = new search().search()
-console.log(search)
+let a = new search()
+//console.log(a.EndingPos)
+let result = a.search()
+while(result === "nil"){
+    result=a.search()
+}
+console.log(result)
+//console.log(search)
