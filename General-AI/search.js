@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern1').toString();
+var data = fs.readFileSync('pattern2').toString();
 // let lines = data.split("\n").map(element => element.split(""));
 // console.log(lines)
 
@@ -67,7 +67,7 @@ class search{
         else{
             this.current = this.NavigationList.pop()
             console.log("Current =",this.current)
-            if(this.current === this.EndingPos){
+            if(`${this.current}` === `${this.EndingPos}`){
                 return "Reached Destination"
             }else{
             this.nextNodes(this.current)
