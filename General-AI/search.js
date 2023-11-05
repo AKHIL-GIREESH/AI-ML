@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern2').toString();
+var data = fs.readFileSync('pattern4.txt').toString();
 // let lines = data.split("\n").map(element => element.split(""));
 // console.log(lines)
 
