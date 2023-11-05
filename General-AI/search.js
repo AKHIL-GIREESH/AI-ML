@@ -1,11 +1,12 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern4.txt').toString();
+var data = fs.readFileSync('pattern3.txt').toString();
 // let lines = data.split("\n").map(element => element.split(""));
 // console.log(lines)
 
 
 class search{
+    steps
     rows
     columns
     matrix
@@ -31,6 +32,7 @@ class search{
         this.initialParsing()
         //this.current = this.startingPos
         this.NavigationList.push(this.startingPos)
+        this.steps = 0
     }
 
     initialParsing(){
@@ -59,34 +61,54 @@ class search{
         }
     }
 
-    search(){
+    searchStack(){
+        this.steps+=1
         //console.log(this.current)
         if(this.NavigationList.length == 0){
-            return "No Solution"
-        }
-        else{
+            console.log("No Solution")
+        }else{
             this.current = this.NavigationList.pop()
             console.log("Current =",this.current)
             if(`${this.current}` === `${this.EndingPos}`){
-                return "Reached Destination"
+                console.log("Reached Destination")
+                console.log(this.steps)
             }else{
             this.nextNodes(this.current)
             this.ExploredList.push(`${this.current}`)
             console.log(this.ExploredList)
             console.log(this.NavigationList)
-            return "nil"
-            //this.search()
+            this.searchStack()
             }
 
         }
     }
+
+    searchQueue(){
+        this.steps+=1
+        if(this.NavigationList.length == 0){
+            console.log("No Solution")
+        }else{
+            this.current = this.NavigationList.shift()
+            console.log("Current =",this.current)
+            if(`${this.current}` === `${this.EndingPos}`){
+                console.log("Reached Destination")
+                console.log(this.steps)
+            }else{
+            this.nextNodes(this.current)
+            this.ExploredList.push(`${this.current}`)
+            console.log(this.ExploredList)
+            console.log(this.NavigationList)
+            this.searchQueue()
+            }
+        }
+    }
 }
 
-let a = new search()
+let a = new search().searchQueue()
 //console.log(a.EndingPos)
-let result = a.search()
-while(result === "nil"){
-    result=a.search()
-}
-console.log(result)
+// let result = a.search()
+// while(result === "nil"){
+//     result=a.search()
+// }
+// console.log(result)
 //console.log(search)
