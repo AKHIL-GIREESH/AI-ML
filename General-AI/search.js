@@ -16,12 +16,6 @@ class search{
     current
     ExploredList = []
     NavigationList = []
-    // actions = {
-    //     up: this.current[0] - 1,
-    //     down: this.current[0] + 1,
-    //     left: this.current[1] - 1,
-    //     right: this.current[1] + 1
-    // }
 
     constructor(){
         this.lines = data.split("\n")
@@ -48,8 +42,6 @@ class search{
     }
 
     nextNodes(element){
-        // console.log(!this.ExploredList.includes(`${[element[0]+1,element[1]]}`))
-        // console.log(`${[element[0]+1,element[1]]}`)
         if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
             this.NavigationList.push([element[0],element[1]-1])
         }if(element[0]-1>-1  && !this.ExploredList.includes(`${[element[0]-1,element[1]]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
@@ -105,10 +97,4 @@ class search{
 }
 
 let a = new search().searchQueue()
-//console.log(a.EndingPos)
-// let result = a.search()
-// while(result === "nil"){
-//     result=a.search()
-// }
-// console.log(result)
-//console.log(search)
+//let a = new search().searchStack()
