@@ -69,9 +69,24 @@ class TickTacToe{
         }
     }
 
-    checkTermination(){
-        if((this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X")){
+    checkTermination(letter){
+        for(let i=0;i<3;i++){
+            if(this.matrix[i][0] == letter && this.matrix[i][1] == letter && this.matrix[i][2] == letter){
+                return true
+            }
 
+        }
+        for(let i=0;i<3;i++){
+            if(this.matrix[0][i] == letter && this.matrix[1][i] == letter && this.matrix[2][i] == letter){
+                return true
+            }
+        }
+
+        if(this.matrix[0][0] == letter && this.matrix[1][1] == letter && this.matrix[2][2] == letter){
+            return true
+        }
+        if(this.matrix[2][0] == letter && this.matrix[1][1] == letter && this.matrix[0][2] == letter){
+            return true
         }
     }
     //func to check whether anybody won
