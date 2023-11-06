@@ -1,11 +1,13 @@
 class TickTacToe{
     matrix
     role
+    player
     state
     count
     ExploredList=[]
-    constructor(){
-        this.role = "X"
+    constructor(role){
+        this.role = role=="X"?"O":"X"
+        this.player = role
         this.state = 0
         this.count = [0,0]
         this.matrix = [
@@ -13,7 +15,7 @@ class TickTacToe{
             [0,0,0],
             [0,0,0]
         ]
-        this.role == "X"?this.actionX():this.actionO()
+        this.role == "X"?this.actionMachine():this.actionPlayer()
         //this.initialParsing()
     }
 
@@ -21,7 +23,7 @@ class TickTacToe{
         return Math.floor(Math.random() * 2)
     }
 
-    actionX(){
+    actionPlayer(){
         if(this.state !== 0){
             console.log(this.results())
         }else{
@@ -33,14 +35,14 @@ class TickTacToe{
                     b = this.randomGenerator()
                 }
                 this.matrix[a][b] = "X"
+                this.ExploredList.push([a,b])
                 console.log(this.matrix)
                 this.count[0]++
-                this.actionO()
             }
         }
     }
 
-    actionO(){
+    actionMachine(){
         if(this.state !== 0){
             console.log(this.results())
         }else{
@@ -54,7 +56,6 @@ class TickTacToe{
                 this.matrix[a][b] = "O"
                 console.log(this.matrix)
                 this.count[1]++
-                this.actionX()            
             }
         }
     }
@@ -74,7 +75,6 @@ class TickTacToe{
             if(this.matrix[i][0] == letter && this.matrix[i][1] == letter && this.matrix[i][2] == letter){
                 return true
             }
-
         }
         for(let i=0;i<3;i++){
             if(this.matrix[0][i] == letter && this.matrix[1][i] == letter && this.matrix[2][i] == letter){
@@ -93,4 +93,4 @@ class TickTacToe{
     //func to check who won the game
 }
 
-const a = new TickTacToe()
+const a = new TickTacToe("X")
