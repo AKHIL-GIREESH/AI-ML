@@ -37,7 +37,6 @@ class TickTacToe{
                 this.count[0]++
                 this.actionO()
             }
-            
         }
     }
 
@@ -71,7 +70,9 @@ class TickTacToe{
     }
 
     checkTermination(){
+        if((this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X") || (this.matrix[0][0] === "X" && this.matrix[1][1] === "X" && this.matrix[2][2] === "X")){
 
+        }
     }
     //func to check whether anybody won
     //func to check who won the game
