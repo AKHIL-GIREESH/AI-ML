@@ -9,7 +9,10 @@ class TickTacToe{
         this.role = role=="X"?"O":"X"
         this.player = role
         this.state = 0
-        this.count = [0,0]
+        this.count = {
+            "X":0,
+            "O":0
+        }
         this.matrix = [
             [0,0,0],
             [0,0,0],
@@ -24,38 +27,38 @@ class TickTacToe{
     }
 
     actionPlayer(){
-        if(this.state !== 0){
-            console.log(this.results())
-        }else{
-            if(this.count[0]<2){
-                let a = this.randomGenerator()
-                let b = this.randomGenerator()
-                while(this.matrix[a][b] !== 0){
-                    a = this.randomGenerator()
-                    b = this.randomGenerator()
-                }
-                this.matrix[a][b] = "X"
-                this.ExploredList.push([a,b])
-                console.log(this.matrix)
-                this.count[0]++
-            }
-        }
+        // if(this.state !== 0){
+        //     console.log(this.results())
+        // }else{
+        //     if(this.count[0]<2){
+        //         let a = this.randomGenerator()
+        //         let b = this.randomGenerator()
+        //         while(this.matrix[a][b] !== 0){
+        //             a = this.randomGenerator()
+        //             b = this.randomGenerator()
+        //         }
+        //         this.matrix[a][b] = "X"
+        //         this.ExploredList.push([a,b])
+        //         console.log(this.matrix)
+        //         this.count[0]++
+        //     }
+        // }
     }
 
     actionMachine(){
         if(this.state !== 0){
             console.log(this.results())
         }else{
-            if(this.count[1]<1){
+            if(this.count[this.role]< this.role=="X"?2:1){
                 let a = this.randomGenerator()
                 let b = this.randomGenerator()
                 while(this.matrix[a][b] !== 0){
                     a = this.randomGenerator()
                     b = this.randomGenerator()
                 }
-                this.matrix[a][b] = "O"
+                this.matrix[a][b] = this.role
                 console.log(this.matrix)
-                this.count[1]++
+                this.count[this.role]++
             }
         }
     }
