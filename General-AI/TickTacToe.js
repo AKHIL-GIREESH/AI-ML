@@ -59,6 +59,8 @@ class TickTacToe{
                 this.matrix[a][b] = this.role
                 console.log(this.matrix)
                 this.count[this.role]++
+            }else{
+                //minmax
             }
         }
     }
