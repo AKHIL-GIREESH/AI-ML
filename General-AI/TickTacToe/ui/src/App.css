@@ -49,7 +49,14 @@ body{
 
 .Boxes{
   border: 1px solid white;
-  width:40%;
+  width:42%;
   height: 70vh;
   margin-top:5vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Boxes button{
+  background-color: aqua;
+  width:33.3%;
 }
