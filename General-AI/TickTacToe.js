@@ -33,28 +33,40 @@ class TickTacToe{
         while(depth !== 0){
             if(maximisingFunc){
                 maxVal = -100
+                let tempVal = -100
+                let coordinates
                 for(let i=0;i<3;i++){
                     for(let j=0;j<3;j++){
                         if(state[i][j] == 0){
                             temp = this.matrix
                             temp[i][j] = "X"
                             maxVal = Math.max(maxVal,this.minmax(temp,depth-1,false))
+                            if(tempVal !== maxVal){
+                                coordinates = [i,j]
+                                tempVal = maxVal
+                            }
                         }
                     }
                 }
-                return maxVal
+                return depth===this.depth? {coordinates:maxVal}:maxVal
             }else{
-                minVal = 100
+                let minVal = 100
+                let tempVal = 100
+                let coordinates
                 for(let i = 0;i<3;i++){
                     for(let j=0;j<3;j++){
                         if(this.matrix[i][j] == 0){
                             temp = this.matrix
                             temp[i][j] = "O"
                             minVal = Math.min(minVal,this.minmax(temp,depth-1,true))
+                            if(tempVal !== minVal){
+                                coordinates = [i,j]
+                                tempVal = minVal
+                            }
                         }
                     }
                 }
-                return minVal
+                return depth===this.depth? {coordinates:minVal}:minVal
             }
         }
     }
