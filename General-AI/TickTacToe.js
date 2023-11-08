@@ -38,7 +38,7 @@ class TickTacToe{
                 for(let i=0;i<3;i++){
                     for(let j=0;j<3;j++){
                         if(state[i][j] == 0){
-                            temp = this.matrix
+                            temp = state
                             temp[i][j] = "X"
                             maxVal = Math.max(maxVal,this.minmax(temp,depth-1,false))
                             if(tempVal !== maxVal){
@@ -48,15 +48,15 @@ class TickTacToe{
                         }
                     }
                 }
-                return depth===this.depth? {coordinates:maxVal}:maxVal
+                return depth===this.depth? {coordinates,maxVal}:maxVal
             }else{
                 let minVal = 100
                 let tempVal = 100
                 let coordinates
                 for(let i = 0;i<3;i++){
                     for(let j=0;j<3;j++){
-                        if(this.matrix[i][j] == 0){
-                            temp = this.matrix
+                        if(state[i][j] == 0){
+                            temp = state
                             temp[i][j] = "O"
                             minVal = Math.min(minVal,this.minmax(temp,depth-1,true))
                             if(tempVal !== minVal){
@@ -66,7 +66,15 @@ class TickTacToe{
                         }
                     }
                 }
-                return depth===this.depth? {coordinates:minVal}:minVal
+                return depth===this.depth? {coordinates,minVal}:minVal
+            }
+        }
+        let flag = maximisingFunc?"X":"O"
+        for(let i=0;i<3;i++){
+            for(let j=0;j<3;j++){
+                if(state[i][j] === 0){
+
+                }
             }
         }
     }
@@ -110,7 +118,7 @@ class TickTacToe{
                 //         max = minmax()
                 //     }
                 // }
-                this.minmax(this.matrix,depth,this.role == "X"?true:false)
+                let {} = this.minmax(this.matrix,depth,this.role == "X"?true:false)
             }
         }
     }
@@ -125,22 +133,22 @@ class TickTacToe{
         }
     }
 
-    checkTermination(letter){
+    checkTermination(letter,state){
         for(let i=0;i<3;i++){
-            if(this.matrix[i][0] == letter && this.matrix[i][1] == letter && this.matrix[i][2] == letter){
+            if(state[i][0] == letter && state[i][1] == letter && state[i][2] == letter){
                 return true
             }
         }
         for(let i=0;i<3;i++){
-            if(this.matrix[0][i] == letter && this.matrix[1][i] == letter && this.matrix[2][i] == letter){
+            if(state[0][i] == letter && state[1][i] == letter && state[2][i] == letter){
                 return true
             }
         }
 
-        if(this.matrix[0][0] == letter && this.matrix[1][1] == letter && this.matrix[2][2] == letter){
+        if(state[0][0] == letter && state[1][1] == letter && state[2][2] == letter){
             return true
         }
-        if(this.matrix[2][0] == letter && this.matrix[1][1] == letter && this.matrix[0][2] == letter){
+        if(state[2][0] == letter && state[1][1] == letter && state[0][2] == letter){
             return true
         }
     }

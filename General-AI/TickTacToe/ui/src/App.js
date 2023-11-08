@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import {useState} from "react"
 
 function App() {
+
+  const [val,setVal] = useState("")
+  let buttons = []
+
+  const generateBoxes = () => {
+    for(let i=0;i<3;i++){
+      for(let j=0;j<3;j++){
+        buttons.push(<button className='Slots' onClick={() => setVal("X")}>{val}</button>)
+      }
+    }
+    return buttons
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TICK-TAC-TOE</h1>
+      <div className="Boxes">
+        {generateBoxes()}
+      </div>
     </div>
   );
 }
