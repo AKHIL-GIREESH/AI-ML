@@ -1,28 +1,28 @@
 import './App.css';
-import {useState} from "react"
-import boxx from '../../ui/src/box';
+import {useEffect, useState} from "react"
+//import boxx from '../../ui/src/box';
 
 function App() {
 
   //const [val,setVal] = useState("")
-  const [box,setBox] = useState(boxx)
+  const [box,setBox] = useState(Array(9).fill(" "))
   //const [machineTurn,setMachineTurn]= useState(false)
   //let buttons = []
 
-  const modifyBox = (param,unit) => {
-    setBox(prevBox => {
-      return prevBox.map(item => {
-        if(item.id === param && item.value===" "){
-          //setMachineTurn(state => !state)
-            return {
-              ...item,
-              value:unit
-            }
-          }else{
-            return item
-          }
-      })
-    })
+  function modifyBox(param,unit){
+    // setBox(prevBox => {
+    //   return prevBox.map(item => {
+    //     if(item.id === param && item.value===" "){
+    //       console.log(param)
+    //         return {
+    //           ...item,
+    //           value:unit
+    //         }
+    //       }else{
+    //         return item
+    //       }
+    //   })
+    // })
   }
 
   console.log(box)
@@ -37,14 +37,25 @@ const randomGenerator = () => {
   return Math.floor(Math.random() * 9)
 }
 
+// useEffect(() => {
+
+// },[box])
 function machineTurn(){
   let a = randomGenerator()
-  while(box[a].value !== ' '){
+  while(box[a].value !== ' ' && box[a].value !== "X"){
       console.log("calls this")
       a = randomGenerator()
   }
-  //matrix[a][b] = "O"
+  console.log("works")
   modifyBox(a,"O")
+  //matrix[a][b] = "O"
+  // for(let i =0;i<9;i++){
+  //   if(box[i].value === ' '){
+  //     console.log("hi")
+  //     modifyBox(i,"O")
+  //     break
+  //   }
+  // }
 }
 
 // let k=0;

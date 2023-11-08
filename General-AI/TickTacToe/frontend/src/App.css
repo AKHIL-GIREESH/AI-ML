@@ -1,0 +1,82 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+/* .logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+body{
+  background-color: #202020;
+  color: azure;
+  font-size: 1.5em;
+  border: 1px solid white;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Boxes{
+  border: 1px solid white;
+  width:42%;
+  height: 70vh;
+  margin-top:5vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Boxes div{
+  background-color: azure;
+  width:33%;
+  height: 33%;
+  border: 1px solid black;
+  /* padding: 0px;
+  margin: 0px; */
+  /* font-size: 30px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
