@@ -45,7 +45,6 @@ body{
   background-color: #202020;
   color: azure;
   font-size: 1.5em;
-  border: 1px solid white;
 }
 
 .App {
@@ -56,13 +55,13 @@ body{
   align-items: center;
   width: 100vw;
   height: 100vh;
+  border: 1px solid white;
 }
 
 .Boxes{
   border: 1px solid white;
   width:42%;
   height: 70vh;
-  margin-top:5vh;
   display: flex;
   flex-wrap: wrap;
 }

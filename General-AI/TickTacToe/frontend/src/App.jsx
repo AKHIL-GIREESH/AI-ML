@@ -28,10 +28,10 @@ function App() {
     }
 
     const Cell = ({keyy,elem}) => {
-        return <button key ={keyy} onClick={()=> {
+        return <div key ={keyy} onClick={()=> {
          modifyMatrix(keyy,"X")
          machineTurn()
-        }}>{elem}</button>
+        }}>{elem}</div>
     }
 
     const generateCells = () =>{
@@ -46,10 +46,12 @@ function App() {
     }
     console.log(matrix)
     return(
-        <>
+        <div className='App'>
             <h1>Tic Tac Toe</h1>
-            {generateCells()}
-        </>
+            <div className='Boxes'>
+                {generateCells()}
+            </div>
+        </div>
     )
 }
 export default App;
