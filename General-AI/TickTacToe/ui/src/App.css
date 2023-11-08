@@ -56,10 +56,16 @@ body{
   flex-wrap: wrap;
 }
 
-.Boxes button{
-  background-color: aqua;
-  width:33.3%;
+.Boxes div{
+  background-color: azure;
+  width:33%;
+  height: 33%;
   border: 1px solid black;
-  padding: 0px;
-  margin: 0px;
+  /* padding: 0px;
+  margin: 0px; */
+  /* font-size: 30px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
 }
