@@ -9,19 +9,20 @@ function App() {
     const modifyMatrix = (prop,unit) => {
         setMatrix((prevMatrix) => {
             const updatedMatrix = prevMatrix.map((row, i) =>
-                row.map((cell, j) =>3*i+j === prop && cell === "" ? unit : cell)
+                row.map((cell, j) =>(3*i+j === prop && cell === "") ? unit : cell)
             );
     
             return updatedMatrix;
         });
+        console.log(matrix)
     };    
 
     const machineTurn = () => {
-        let a = Math.floor(Math.random() * 2)
-        let b = Math.floor(Math.random() * 2)
+        let a = Math.floor(Math.random() * 3)
+        let b = Math.floor(Math.random() * 3)
         while(matrix[a][b] !== ""){
-            a = Math.floor(Math.random() * 2)
-            b = Math.floor(Math.random() * 2)
+            a = Math.floor(Math.random() * 3)
+            b = Math.floor(Math.random() * 3)
         }
         modifyMatrix(3*a+b,"O")
     }
