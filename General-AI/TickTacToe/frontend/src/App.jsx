@@ -1,85 +1,54 @@
 import './App.css';
 import {useEffect, useState} from "react"
-//import boxx from '../../ui/src/box';
+
 
 function App() {
+    const [matrix,setMatrix] = useState(Array(3).fill(Array(3).fill("")))
 
-  //const [val,setVal] = useState("")
-  const [box,setBox] = useState(Array(9).fill(" "))
-  //const [machineTurn,setMachineTurn]= useState(false)
-  //let buttons = []
 
-  function modifyBox(param,unit){
-    // setBox(prevBox => {
-    //   return prevBox.map(item => {
-    //     if(item.id === param && item.value===" "){
-    //       console.log(param)
-    //         return {
-    //           ...item,
-    //           value:unit
-    //         }
-    //       }else{
-    //         return item
-    //       }
-    //   })
-    // })
-  }
+    const modifyMatrix = (prop,unit) => {
+        setMatrix((prevMatrix) => {
+            const updatedMatrix = prevMatrix.map((row, i) =>
+                row.map((cell, j) =>3*i+j === prop && cell === "" ? unit : cell)
+            );
+    
+            return updatedMatrix;
+        });
+    };    
 
-  console.log(box)
-  let buttons = box.map(item =>{ 
-  return <div key={item.id} className='Slots' onClick={() => {
-    modifyBox(item.id,"X")
-    machineTurn()
-    }}>{item.value}</div>
-})
+    const machineTurn = () => {
+        let a = Math.floor(Math.random() * 2)
+        let b = Math.floor(Math.random() * 2)
+        while(matrix[a][b] !== ""){
+            a = Math.floor(Math.random() * 2)
+            b = Math.floor(Math.random() * 2)
+        }
+        modifyMatrix(3*a+b,"O")
+    }
 
-const randomGenerator = () => {
-  return Math.floor(Math.random() * 9)
+    const Cell = ({keyy,elem}) => {
+        return <button key ={keyy} onClick={()=> {
+         modifyMatrix(keyy,"X")
+         machineTurn()
+        }}>{elem}</button>
+    }
+
+    const generateCells = () =>{
+        let cells = []
+        for(let i=0;i<3;i++){
+            for(let j=0;j<3;j++){
+                cells.push(<Cell keyy={3*i+j} elem = {matrix[i][j]}/>)
+            }
+        }
+        return cells
+        //matrix.map(item => item.map(elem => <button onClick={(e)=> modifyMatrix(e)}>{elem}</button>))
+    }
+    console.log(matrix)
+    return(
+        <>
+            <h1>Tic Tac Toe</h1>
+            {generateCells()}
+        </>
+    )
 }
-
-// useEffect(() => {
-
-// },[box])
-function machineTurn(){
-  let a = randomGenerator()
-  while(box[a].value !== ' ' && box[a].value !== "X"){
-      console.log("calls this")
-      a = randomGenerator()
-  }
-  console.log("works")
-  modifyBox(a,"O")
-  //matrix[a][b] = "O"
-  // for(let i =0;i<9;i++){
-  //   if(box[i].value === ' '){
-  //     console.log("hi")
-  //     modifyBox(i,"O")
-  //     break
-  //   }
-  // }
-}
-
-// let k=0;
-//   let matrix = [
-//     [0,0,0],
-//     [0,0,0],
-//     [0,0,0]
-// ]
-//   //console.log(box[k])
-//   for(let i=0;i<3;i++){
-//     for(let j=0;j<3;j++){
-//       matrix[i][j] = box[k].value;
-//       k++;
-//     }
-//   }
-
-  return (
-    <div className="App">
-      <h1>TICK-TAC-TOE</h1>
-      <div className="Boxes">
-        {buttons}
-      </div>
-    </div>
-  );
-}
-
 export default App;
