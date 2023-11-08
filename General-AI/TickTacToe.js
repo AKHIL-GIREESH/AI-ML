@@ -4,10 +4,13 @@ class TickTacToe{
     player
     state
     count
-    ExploredList=[]
+    ExploredList
+    depth
     constructor(role){
         this.role = role=="X"?"O":"X"
+        this.depth = 3
         this.player = role
+        this.ExploredList = []
         this.state = 0
         this.count = {
             "X":0,
@@ -24,6 +27,36 @@ class TickTacToe{
 
     randomGenerator(){
         return Math.floor(Math.random() * 2)
+    }
+
+    minmax(state,depth,maximisingFunc){
+        while(depth !== 0){
+            if(maximisingFunc){
+                maxVal = -100
+                for(let i=0;i<3;i++){
+                    for(let j=0;j<3;j++){
+                        if(state[i][j] == 0){
+                            temp = this.matrix
+                            temp[i][j] = "X"
+                            maxVal = Math.max(maxVal,this.minmax(temp,depth-1,false))
+                        }
+                    }
+                }
+                return maxVal
+            }else{
+                minVal = 100
+                for(let i = 0;i<3;i++){
+                    for(let j=0;j<3;j++){
+                        if(this.matrix[i][j] == 0){
+                            temp = this.matrix
+                            temp[i][j] = "O"
+                            minVal = Math.min(minVal,this.minmax(temp,depth-1,true))
+                        }
+                    }
+                }
+                return minVal
+            }
+        }
     }
 
     actionPlayer(){
@@ -60,7 +93,12 @@ class TickTacToe{
                 console.log(this.matrix)
                 this.count[this.role]++
             }else{
-                //minmax
+                // for(let i=0;i<3;i++){
+                //     for(let j=0;j<3;j++){
+                //         max = minmax()
+                //     }
+                // }
+                this.minmax(this.matrix,depth,this.role == "X"?true:false)
             }
         }
     }
