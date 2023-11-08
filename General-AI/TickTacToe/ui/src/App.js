@@ -12,18 +12,24 @@ function App() {
   const modifyBox = (param) => {
     setBox(prevBox => {
       return prevBox.map(item => {
-        console.log(item.val)
-        if(item.id === param){
+        if(item.id === param && item.value===" "){
+          console.log(item)
             return {
               ...item,
-              val:"X"
+              value:"X"
             }
+          }else{
+            return item
           }
       })
     })
   }
 
-  let buttons = box.map(item => <button key={item.id} className='Slots' onClick={() => modifyBox(item.id)}>{item.val}</button>)
+  console.log(box)
+  let buttons = box.map(item =>{ 
+    console.log(item)
+  return <button key={item.id} className='Slots' onClick={() => modifyBox(item.id)}>{item.value}</button>
+})
 
   return (
     <div className="App">

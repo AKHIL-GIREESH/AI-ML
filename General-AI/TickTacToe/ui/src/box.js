@@ -1,38 +1,39 @@
 const boxx = [
     {
         id:1,
-        val:" "
+        value:" "
     },
     {
         id:2,
-        val:" "
+        value:" "
     },{
         id:3,
-        val:" "
+        value:" "
     },
     {
         id:4,
-        val:" "
+        value:" "
     },
     {
         id:5,
-        val:" "
+        value:" "
     },
     {
         id:6,
-        val:" "
+        value:" "
     },
     {
         id:7,
-        val:" "
+        value:" "
     },
     {
         id:8,
-        val:" "
+        value:" "
+        
     },
     {
         id:9,
-        val:" "
+        value:" "
     }
 ]
 
