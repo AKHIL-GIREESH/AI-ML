@@ -10,24 +10,24 @@ function App() {
 
   const Winner = (letter) => {
     for(let i=0;i<3;i++){
-      if(state[i][0] == letter && state[i][1] == letter && state[i][2] == letter){
-          return terminationVal[letter]
+      if(matrix[i][0] == letter && matrix[i][1] == letter && matrix[i][2] == letter){
+          return terminationVal.letter
       }
   }
   for(let i=0;i<3;i++){
-      if(state[0][i] == letter && state[1][i] == letter && state[2][i] == letter){
-          return terminationVal[letter]
+      if(matrix[0][i] == letter && matrix[1][i] == letter && matrix[2][i] == letter){
+          return terminationVal.letter
       }
   }
 
-  if(state[0][0] == letter && state[1][1] == letter && state[2][2] == letter){
-      return terminationVal[letter]
+  if(matrix[0][0] == letter && matrix[1][1] == letter && matrix[2][2] == letter){
+      return terminationVal.letter
   }
-  if(state[2][0] == letter && state[1][1] == letter && state[0][2] == letter){
-      return terminationVal[letter]
+  if(matrix[2][0] == letter && matrix[1][1] == letter && matrix[0][2] == letter){
+      return terminationVal.letter
   }
   return 0;
-  };
+  }
 
   
 
@@ -50,14 +50,21 @@ function App() {
       b = Math.floor(Math.random() * 3);
     }
     modifyMatrix(3 * a + b, "O");
+    if(Winner("O") !== 0){
+      console.log("O Wins")
+    }
   };
 
   const Cell = ({ keyy, elem }) => {
     return (
       <div key={keyy} onClick={() => {
         modifyMatrix(keyy, "X");
+        if(Winner("X") === 0){
+          machineTurn();
+        }else{
+          console.log("X Wins")
+        }
         
-        machineTurn();
       }}>
         {elem}
       </div>
