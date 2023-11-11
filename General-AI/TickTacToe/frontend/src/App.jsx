@@ -36,6 +36,7 @@ function App() {
     return (
       <div key={keyy} onClick={() => {
         modifyMatrix(keyy, "X");
+        
         machineTurn();
       }}>
         {elem}
