@@ -7,8 +7,10 @@ function App() {
     const initialMatrix = Array(3).fill(null).map(() => Array(3).fill(""));
     return initialMatrix;
   });
+  const [currentPlayer,setCurrentPlayer] = useState("O")
 
   const Winner = (letter) => {
+    console.log("Hi")
     for(let i=0;i<3;i++){
       if(matrix[i][0] == letter && matrix[i][1] == letter && matrix[i][2] == letter){
           return terminationVal.letter
@@ -29,7 +31,21 @@ function App() {
   return 0;
   }
 
-  
+  useEffect(() => {
+    console.log("Works!")
+    let varA = Winner("X")
+    if(varA !== 0){
+      console.log(`${"X"} Wins`)
+    }else{
+      if(currentPlayer==="X"){
+        setCurrentPlayer("O")
+        machineTurn();
+      }else{
+        setCurrentPlayer("X")
+      }
+    }
+    
+  },[matrix])
 
   const modifyMatrix = (prop, unit) => {
     setMatrix((prevMatrix) => {
@@ -50,21 +66,13 @@ function App() {
       b = Math.floor(Math.random() * 3);
     }
     modifyMatrix(3 * a + b, "O");
-    if(Winner("O") !== 0){
-      console.log("O Wins")
-    }
+    console.log("Works")
   };
 
   const Cell = ({ keyy, elem }) => {
     return (
       <div key={keyy} onClick={() => {
         modifyMatrix(keyy, "X");
-        if(Winner("X") === 0){
-          machineTurn();
-        }else{
-          console.log("X Wins")
-        }
-        
       }}>
         {elem}
       </div>
