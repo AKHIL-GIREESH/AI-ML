@@ -33,9 +33,9 @@ function App() {
 
   useEffect(() => {
     console.log("Works!")
-    let varA = Winner("X")
+    let varA = Winner(currentPlayer)
     if(varA !== 0){
-      console.log(`${"X"} Wins`)
+      console.log(`${currentPlayer} Wins`)
     }else{
       if(currentPlayer==="X"){
         setCurrentPlayer("O")
