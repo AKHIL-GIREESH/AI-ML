@@ -45,10 +45,8 @@ class greedySearch{
     initialParsing(){
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.columns;j++){
-                if(this.matrix[i][j] === 'A'){
-                    this.startingPos = [i,j]
-                }else if(this.matrix[i][j] === 'B'){
-                    this.EndingPos = [i,j]
+                if(this.matrix[i][j] === 'B'){
+                    this.EndingPos = [i,j,0]
                 }
             }
         }
@@ -57,13 +55,53 @@ class greedySearch{
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.columns;j++){
                 if(this.matrix[i][j] !== "#"){
-                    this.matrix[i][j] = `${Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j)}`
+                    if(this.matrix[i][j] === "A"){
+                        this.startingPos = [i,j,Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j)]
+                    }
+                    this.matrix[i][j] = Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j)
                 }
+            }
+        }
+    }
+
+    nextNodes(element){
+        if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1],this.matrix[element[0]][element[1]-1]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
+            this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1]])
+        }if(element[0]-1>-1  && !this.ExploredList.includes(`${[element[0]-1,element[1],this.matrix[element[0]-1][element[1]]]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
+            this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]]])
+        }if(element[0]+1<this.rows  && !this.ExploredList.includes(`${[element[0]+1,element[1],this.matrix[element[0]+1][element[1]]]}`)  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
+            this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1],this.matrix[element[0]][element[1]+1]]])
+        }if(element[1]+1<this.columns  && !this.ExploredList.includes(`${[element[0],element[1]+1]}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+            this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1]])
+        }
+    }
+
+    search(){
+        this.steps +=1
+        let min = Infinity
+        if(this.NavigationList.length == 0){
+            console.log("No Solution")
+        }else{
+            //this.current = Math.min(this.NavigationList.pop(),this.NavigationList.pop())
+            for(let i=0;i<this.NavigationList.length;i++){
+                if(this.NavigationList[i][2]<min){
+                    min = i
+                }
+            }
+            this.current = this.NavigationList.splice(min,1)[0]
+            console.log("Current =",this.current)
+            if(`${this.current}` === `${this.EndingPos}`){
+                console.log("Reached Destination")
+                console.log(this.steps)
+            }else{
+            this.nextNodes(this.current)
+            this.ExploredList.push(`${this.current}`)
+            console.log(this.ExploredList)
+            console.log(this.NavigationList)
+            this.search()
             }
         }
     }
 }
 
-const g = new greedySearch()
-
-console.log(g.matrix)
+const g = new greedySearch().search()
