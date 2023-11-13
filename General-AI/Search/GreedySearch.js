@@ -11,7 +11,7 @@ matrix = lines.map(element => element.split(""))
 for(let i=0;i<rows;i++){
     for(let j=0;j<columns;j++){
         if(matrix[i][j] !== "#"){
-            matrix[i][j] = `${i-0+j-5}`
+            matrix[i][j] = `${Math.abs(i-0)+Math.abs(j-5)}`
         }
     }
 }
