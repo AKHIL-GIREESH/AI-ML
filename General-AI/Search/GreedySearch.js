@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern1').toString();
+var data = fs.readFileSync('pattern4.txt').toString();
 
 // console.log(data)
 // lines = data.split("\n")
@@ -51,7 +51,7 @@ class greedySearch{
             }
         }
 
-        console.log(this.EndingPos)
+        //console.log(this.EndingPos)
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.columns;j++){
                 if(this.matrix[i][j] !== "#"){
@@ -62,29 +62,32 @@ class greedySearch{
                 }
             }
         }
+        console.log(this.EndingPos,this.startingPos)
+        console.log(this.matrix)
+
     }
 
     nextNodes(element){
-        if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1],this.matrix[element[0]][element[1]-1]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
+        if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1,this.matrix[element[0]][element[1]-1]]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
             this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1]])
         }if(element[0]-1>-1  && !this.ExploredList.includes(`${[element[0]-1,element[1],this.matrix[element[0]-1][element[1]]]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
             this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]]])
         }if(element[0]+1<this.rows  && !this.ExploredList.includes(`${[element[0]+1,element[1],this.matrix[element[0]+1][element[1]]]}`)  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
-            this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1],this.matrix[element[0]][element[1]+1]]])
-        }if(element[1]+1<this.columns  && !this.ExploredList.includes(`${[element[0],element[1]+1]}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+            this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1]]])
+        }if(element[1]+1<this.columns  && !this.ExploredList.includes(`${[element[0],element[1]+1,this.matrix[element[0]][element[1]+1]]}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
             this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1]])
         }
     }
 
     search(){
         this.steps +=1
-        let min = Infinity
+        let min = 0
         if(this.NavigationList.length == 0){
             console.log("No Solution")
         }else{
             //this.current = Math.min(this.NavigationList.pop(),this.NavigationList.pop())
-            for(let i=0;i<this.NavigationList.length;i++){
-                if(this.NavigationList[i][2]<min){
+            for(let i=1;i<this.NavigationList.length;i++){
+                if(this.NavigationList[i][2]<this.NavigationList[min][2]){
                     min = i
                 }
             }
@@ -96,8 +99,8 @@ class greedySearch{
             }else{
             this.nextNodes(this.current)
             this.ExploredList.push(`${this.current}`)
-            console.log(this.ExploredList)
-            console.log(this.NavigationList)
+            console.log("Explored List = ",this.ExploredList)
+            console.log("Navigation List = ",this.NavigationList)
             this.search()
             }
         }
