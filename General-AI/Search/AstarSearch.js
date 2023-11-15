@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern1').toString();
+var data = fs.readFileSync('pattern4.txt').toString();
 
 // console.log(data)
 // lines = data.split("\n")
@@ -46,7 +46,7 @@ class AstarSearch{
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.columns;j++){
                 if(this.matrix[i][j] === 'B'){
-                    this.EndingPos = [i,j,0]
+                    this.EndingPos = [i,j,0,0]
                 }
             }
         }
@@ -56,7 +56,7 @@ class AstarSearch{
             for(let j=0;j<this.columns;j++){
                 if(this.matrix[i][j] !== "#"){
                     if(this.matrix[i][j] === "A"){
-                        this.startingPos = [i,j,Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j)]
+                        this.startingPos = [i,j,Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j),0]
                     }
                     this.matrix[i][j] = Math.abs(this.EndingPos[0]-i)+Math.abs(this.EndingPos[1]-j)
                 }
@@ -68,14 +68,17 @@ class AstarSearch{
     }
 
     nextNodes(element){
-        if(element[1]-1>-1  && !this.ExploredList.includes(`${[element[0],element[1]-1,this.matrix[element[0]][element[1]-1]]}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
-            this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1],this.steps])
-        }if(element[0]-1>-1  && !this.ExploredList.includes(`${[element[0]-1,element[1],this.matrix[element[0]-1][element[1]]]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
-            this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]],this.steps])
-        }if(element[0]+1<this.rows  && !this.ExploredList.includes(`${[element[0]+1,element[1],this.matrix[element[0]+1][element[1]]]}`)  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
-            this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1]],this.steps])
-        }if(element[1]+1<this.columns  && !this.ExploredList.includes(`${[element[0],element[1]+1,this.matrix[element[0]][element[1]+1]]}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
-            this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1],this.steps])
+        if(element[1]-1>-1  && !this.ExploredList.some(x => x.includes(`${[element[0],element[1]-1]}`)) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
+            this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1],element[3]+1])
+
+        }if(element[0]-1>-1  && !this.ExploredList.some(x => x.includes(`${[element[0]-1,element[1]]}`)) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
+            this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]],element[3]+1])
+
+        }if(element[0]+1<this.rows  && !this.ExploredList.some(x => x.includes(`${[element[0]+1,element[1]]}`))  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
+            this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1]],element[3]+1])
+            
+        }if(element[1]+1<this.columns  && !this.ExploredList.some(x => x.includes(`${[element[0],element[1]+1]}`))  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+            this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1],element[3]+1])
         }
     }
 
@@ -87,13 +90,13 @@ class AstarSearch{
         }else{
             //this.current = Math.min(this.NavigationList.pop(),this.NavigationList.pop())
             for(let i=1;i<this.NavigationList.length;i++){
-                if(this.NavigationList[i][2]<this.NavigationList[min][2]){
+                if(this.NavigationList[i][2]+this.NavigationList[i][3]<this.NavigationList[min][2]+this.NavigationList[min][3]){
                     min = i
                 }
             }
             this.current = this.NavigationList.splice(min,1)[0]
             console.log("Current =",this.current)
-            if(`${this.current}` === `${this.EndingPos}`){
+            if(`${this.current[0]} ${this.current[1]}` === `${this.EndingPos[0]} ${this.EndingPos[1]}`){
                 console.log("Reached Destination")
                 console.log(this.steps)
             }else{
