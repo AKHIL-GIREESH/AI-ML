@@ -1,6 +1,6 @@
 var fs = require("fs");
 
-var data = fs.readFileSync('pattern4.txt').toString();
+var data = fs.readFileSync('pattern3.txt').toString();
 
 // console.log(data)
 // lines = data.split("\n")
@@ -68,16 +68,16 @@ class AstarSearch{
     }
 
     nextNodes(element){
-        if(element[1]-1>-1  && !this.ExploredList.some(x => x.includes(`${[element[0],element[1]-1]}`)) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
+        if(element[1]-1>-1  && !this.ExploredList.some(x => x.includes(`${element[0]},`+`${element[1]-1}`)) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
             this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1],element[3]+1])
 
-        }if(element[0]-1>-1  && !this.ExploredList.some(x => x.includes(`${[element[0]-1,element[1]]}`)) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
+        }if(element[0]-1>-1  && !this.ExploredList.some(x => x.includes(`${element[0]-1},`+`${element[1]}`)) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
             this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]],element[3]+1])
 
-        }if(element[0]+1<this.rows  && !this.ExploredList.some(x => x.includes(`${[element[0]+1,element[1]]}`))  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
+        }if(element[0]+1<this.rows  && !this.ExploredList.some(x => x.includes(`${element[0]+1},`+`${element[1]}`))  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
             this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1]],element[3]+1])
             
-        }if(element[1]+1<this.columns  && !this.ExploredList.some(x => x.includes(`${[element[0],element[1]+1]}`))  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+        }if(element[1]+1<this.columns  && !this.ExploredList.some(x => x.includes(`${element[0]},`+`${element[1]+1}`))  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
             this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1],element[3]+1])
         }
     }
