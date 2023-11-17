@@ -71,19 +71,36 @@ class AstarSearch{
 
         //console.log(`${element[0]},`+`${element[1]}`)
         //console.log(!this.ExploredList.some(x => x.includes(`${element[0]-1},`+`${element[1]}`)))
-
-        if(element[1]-1>-1  && !this.ExploredList.some(x => x[0]+x[1]+x[2] === `${element[0]},`+`${element[1]-1}`) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
+        if(element[1]-1>-1  && !this.ExploredList.some(y => {
+            let x = y.split(",")
+            console.log("Test", x[0]+","+x[1],`${element[0]},`+`${element[1]-1}`)
+            x[0]+","+x[1] === `${element[0]},`+`${element[1]-1}`
+        }) && this.matrix[element[0]][element[1]-1] !== "#" ){  //left
             this.NavigationList.push([element[0],element[1]-1,this.matrix[element[0]][element[1]-1],element[3]+1])
 
-        }if(element[0]-1>-1  && !this.ExploredList.some(x => x[0]+x[1]+x[2] === `${element[0]-1},`+`${element[1]}`) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
+        }if(element[0]-1>-1  && !this.ExploredList.some(y => {
+            let x = y.split(",")
+            console.log("Test", x[0]+","+x[1],`${element[0]},`+`${element[1]-1}`)
+            x[0]+","+x[1] === `${element[0]-1},`+`${element[1]}`
+        }) && this.matrix[element[0]-1][element[1]] !== "#"){ //up
             this.NavigationList.push([element[0]-1,element[1],this.matrix[element[0]-1][element[1]],element[3]+1])
 
-        }if(element[0]+1<this.rows  && !this.ExploredList.some(x => x[0]+x[1]+x[2] === `${element[0]+1},`+`${element[1]}`)  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
+        }if(element[0]+1<this.rows  && !this.ExploredList.some(y => {
+            let x = y.split(",")
+            console.log("Test", x[0]+","+x[1],`${element[0]},`+`${element[1]-1}`)
+            x[0]+","+x[1] === `${element[0]+1},`+`${element[1]}`
+        })  && this.matrix[element[0]+1][element[1]] !== "#"){ //down
             this.NavigationList.push([element[0]+1,element[1],this.matrix[element[0]+1][element[1]],element[3]+1])
             
-        }if(element[1]+1<this.columns  && !this.ExploredList.some(x => x[0]+x[1]+x[2] === `${element[0]},`+`${element[1]+1}`)  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
+        }if(element[1]+1<this.columns  && !this.ExploredList.some(y => {
+            let x = y.split(",")
+            console.log("Test", x[0]+","+x[1],`${element[0]},`+`${element[1]-1}`)
+            x[0]+","+x[1] === `${element[0]},`+`${element[1]+1}`})  && this.matrix[element[0]][element[1]+1] !== "#"){ //right
             this.NavigationList.push([element[0],element[1]+1,this.matrix[element[0]][element[1]+1],element[3]+1])
         }
+        console.log(this.ExploredList[0])
+
+        //console.log(x[0]+x[1]+x[2])
     }
 
     search(){
@@ -108,7 +125,7 @@ class AstarSearch{
             this.ExploredList.push(`${this.current}`)
             console.log("Explored List = ",this.ExploredList)
             console.log("Navigation List = ",this.NavigationList)
-            this.search()
+            this.steps<10 && this.search()
             }
         }
     }
