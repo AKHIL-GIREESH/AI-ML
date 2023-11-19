@@ -1,8 +1,16 @@
 class Connectives{
 
+    Symbols
+    Knowledge
     constructor(){
-
+        this.Symbols = []
+        this.Knowledge = {}
     }
+
+    checkKnowledge(){
+        
+    }
+
 
     AND(...a){
         return a.reduce((res,val) => res && val)
