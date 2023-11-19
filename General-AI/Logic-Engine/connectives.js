@@ -4,7 +4,7 @@ class Connectives{
     Knowledge
     constructor(num){
         this.Symbols = []
-        this.Knowledge = {}
+        this.Knowledge = []
         this.initialSetUp(num)
     }
 
@@ -18,8 +18,9 @@ class Connectives{
 
     initialSetUp(num){
         for(let i=0;i<2**num;i++){
-            console.log(i.toString(2).padStart(num, "0").split(""));
+            this.Symbols.push(i.toString(2).padStart(num, "0").split(""));
         }
+        console.log(this.Symbols)
     }
 
     AND(...a){
@@ -45,5 +46,9 @@ class Connectives{
 }
 
 let a = new Connectives(3)
-a.AND(true,true,true)
-console.log(a.IMPLIES(0,0,1))
+
+for(let i=0;i<8;i++){
+    // let t = a.Symbols[0]           //Here
+    // let ans = (t[0])
+    // this.Knowledge.push(ans)
+}
