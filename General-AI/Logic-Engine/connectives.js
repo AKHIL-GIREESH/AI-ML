@@ -48,7 +48,9 @@ class Connectives{
 let a = new Connectives(3)
 
 for(let i=0;i<8;i++){
-    // let t = a.Symbols[0]           //Here
-    // let ans = (t[0])
-    // this.Knowledge.push(ans)
+    let t = a.Symbols[i]           
+    let ans = {P:t[0], Q:t[1], R:t[2]}
+    a.Knowledge[0].push(ans)
 }
+
+console.log(a.Knowledge)
