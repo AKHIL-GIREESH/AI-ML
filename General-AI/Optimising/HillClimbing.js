@@ -23,8 +23,22 @@ class HillClimbing{
         console.log(this.value)
     }
 
+    bestMove(elem){
+        let tempBestValue = 0
+        if(elem[0]-1>-1 && this.Matrix[elem[0]-1][elem[1]] !== "🏠" && this.Matrix[elem[0]-1][elem[1]] !== "🏥"){
+            elem
+        }
+
+        if(elem[1]-1>-1){
+
+        }
+    }
+    
     Optimizer(){
- 
+        let tempBestValue = 0
+        for(let i=0;i<this.hospitals.length;i++){
+            tempBestValue += this.bestMove(this.hospitals[i])
+        }
     }
 }
 
