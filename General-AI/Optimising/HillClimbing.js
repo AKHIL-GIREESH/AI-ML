@@ -23,15 +23,38 @@ class HillClimbing{
         console.log(this.value)
     }
 
+    currentValCalculator(house,hospital1,hospital2){
+        return Math.min(Math.abs(house[0]-hospital1[0])+Math.abs(house[1]-hospital1[1]),Math.abs(house[0]-hospital2[0])+Math.abs(house[1]-hospital2[1]))
+    }
+
     bestMove(elem){
         let tempBestValue = 0
         if(elem[0]-1>-1 && this.Matrix[elem[0]-1][elem[1]] !== "🏠" && this.Matrix[elem[0]-1][elem[1]] !== "🏥"){
-            elem
+            for(let i=0;i<this.houses.length;i++){
+                let currentVal = this.currentValCalculator(this.house[i],[this.hospitals[0][0]-1,this.hospitals[0][1]],this.hospitals[1])// Math.min(Math.abs(this.houses[i][0] - this.hospitals[0][0])+Math.abs(this.houses[i][1] - this.hospitals[0][1]),Math.abs(this.houses[i][0] - this.hospitals[1][0])+Math.abs(this.houses[i][1] - this.hospitals[1][1]))
+                tempBestValue = currentVal>tempBestValue?currentVal:tempBestValue
+            }
         }
 
-        if(elem[1]-1>-1){
+        if(elem[1]-1>-1 && this.Matrix[elem[0]][elem[1]-1] !== "🏠" && this.Matrix[elem[0]][elem[1]-1] !== "🏥"){
+            for(let i=0;i<this.houses.length;i++){
+                let currentVal = this.currentValCalculator(this.house[i],[this.hospitals[0],this.hospitals[0][1]],this.hospitals[1])//Math.min(Math.abs(this.houses[i][0] - this.hospitals[0][0])+Math.abs(this.houses[i][1] - this.hospitals[0][1]),Math.abs(this.houses[i][0] - this.hospitals[1][0])+Math.abs(this.houses[i][1] - this.hospitals[1][1]))
+                tempBestValue = currentVal>tempBestValue?currentVal:tempBestValue
+            }
+        }
+
+        if(elem[0]+1<5 && this.Matrix[elem[0]][elem[1]-1] !== "🏠" && this.Matrix[elem[0]][elem[1]-1] !== "🏥"){
+            for(let i=0;i<this.houses.length;i++){
+                let currentVal = Math.min(Math.abs(this.houses[i][0] - this.hospitals[0][0])+Math.abs(this.houses[i][1] - this.hospitals[0][1]),Math.abs(this.houses[i][0] - this.hospitals[1][0])+Math.abs(this.houses[i][1] - this.hospitals[1][1]))
+                tempBestValue = currentVal>tempBestValue?currentVal:tempBestValue
+            }
+        }
+
+        if(elem[1]+1<9 && this.Matrix[elem[0]][elem[1]-1] !== "🏠" && this.Matrix[elem[0]][elem[1]-1] !== "🏥"){
 
         }
+        
+        return tempBestValue
     }
     
     Optimizer(){
