@@ -23,20 +23,29 @@ class HillClimbing{
         console.log(this.value)
     }
 
-    currentValCalculator(house,hospital1,hospital2){
-        return Math.min(Math.abs(house[0]-hospital1[0])+Math.abs(house[1]-hospital1[1]),Math.abs(house[0]-hospital2[0])+Math.abs(house[1]-hospital2[1]))
-    }
+    // currentValCalculator(house,hospital1,hospital2){
+    //     return Math.min(Math.abs(house[0]-hospital1[0])+Math.abs(house[1]-hospital1[1]),Math.abs(house[0]-hospital2[0])+Math.abs(house[1]-hospital2[1]))
+    // }
 
-    bestMove(elem){
-        let tempBestValue = 0
+    bestMove(index,elem){
+        let tempBestValue = this.value
+        let bestConfig = null
         if(elem[0]-1>-1 && this.Matrix[elem[0]-1][elem[1]] !== "🏠" && this.Matrix[elem[0]-1][elem[1]] !== "🏥"){
+            let tempHospitals = this.hospitals
+            let currentVal = 0
+            tempHospitals[index] = [elem[0]-1,elem[1]]
             for(let i=0;i<this.houses.length;i++){
-                let currentVal = this.currentValCalculator(this.house[i],[this.hospitals[0][0]-1,this.hospitals[0][1]],this.hospitals[1])// Math.min(Math.abs(this.houses[i][0] - this.hospitals[0][0])+Math.abs(this.houses[i][1] - this.hospitals[0][1]),Math.abs(this.houses[i][0] - this.hospitals[1][0])+Math.abs(this.houses[i][1] - this.hospitals[1][1]))
-                tempBestValue = currentVal>tempBestValue?currentVal:tempBestValue
+                currentVal += Math.min(Math.abs(this.houses[i][0] - tempHospitals[0][0])+Math.abs(this.houses[i][1] - tempHospitals[0][1]),Math.abs(this.houses[i][0] - tempHospitals[1][0])+Math.abs(this.houses[i][1] - tempHospitals[1][1]))//this.currentValCalculator(this.house[i],[this.hospitals[0][0]-1,this.hospitals[0][1]],this.hospitals[1])
+            }
+            if(tempBestValue>currentVal){
+                tempBestValue = currentVal
+                bestConfig = tempHospitals[index]
             }
         }
 
         if(elem[1]-1>-1 && this.Matrix[elem[0]][elem[1]-1] !== "🏠" && this.Matrix[elem[0]][elem[1]-1] !== "🏥"){
+            let tempHospitals = this.hospitals
+            let currentVal = 0
             for(let i=0;i<this.houses.length;i++){
                 let currentVal = this.currentValCalculator(this.house[i],[this.hospitals[0],this.hospitals[0][1]],this.hospitals[1])//Math.min(Math.abs(this.houses[i][0] - this.hospitals[0][0])+Math.abs(this.houses[i][1] - this.hospitals[0][1]),Math.abs(this.houses[i][0] - this.hospitals[1][0])+Math.abs(this.houses[i][1] - this.hospitals[1][1]))
                 tempBestValue = currentVal>tempBestValue?currentVal:tempBestValue
@@ -56,11 +65,17 @@ class HillClimbing{
         
         return tempBestValue
     }
+
+    // bestMove(index,elem){
+    //     let tempHospitals = this.hospitals
+
+
+    // }
     
     Optimizer(){
         let tempBestValue = 0
         for(let i=0;i<this.hospitals.length;i++){
-            tempBestValue += this.bestMove(this.hospitals[i])
+            //tempBestValue += this.bestMove(i,this.hospitals[i])
         }
     }
 }
