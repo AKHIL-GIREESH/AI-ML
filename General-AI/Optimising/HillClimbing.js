@@ -95,13 +95,16 @@ class HillClimbing{
     // }
     
     Optimizer(){
+        let flag = false
         for(let i=0;i<this.hospitals.length;i++){
             let {tempBestValue,bestConfig} = this.bestMove(i,this.hospitals[i])
             if(tempBestValue<this.value){
                 this.value = tempBestValue
                 this.hospitals[i] = bestConfig
+                flag=true
             }
         }
+        flag && this.Optimizer()
         console.log(this.hospitals)
         console.log(this.value)
     }
