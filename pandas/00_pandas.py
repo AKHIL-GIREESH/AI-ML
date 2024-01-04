@@ -18,5 +18,6 @@ print("\nX---------------------X\n")
 
 pokemonData.loc[(pokemonData["Legendary"] == True) & (pokemonData["HP"] > 100),["Legendary"]] = "Too Legendary"
 print(pokemonData)
+print("\nX---------------------X\n")
 
 #pokemonData.to_csv("newPoke.csv")
