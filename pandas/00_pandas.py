@@ -10,3 +10,9 @@ print("X---------------------X")
 
 print(pokemonData.iloc[1])
 print("X---------------------X")
+
+print(pokemonData.loc[pokemonData["Legendary"] == True])
+print("X---------------------X")
+
+#print(pokemonData.sort_values())
+
