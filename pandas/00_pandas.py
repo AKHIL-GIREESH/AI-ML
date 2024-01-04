@@ -3,16 +3,20 @@ import pandas as pd
 pokemonData = pd.read_csv("pokemon_data.csv")
 
 print(pokemonData.head(3))
-print("X---------------------X")
+print("\nX---------------------X\n")
 
 print(pokemonData.columns)
-print("X---------------------X")
+print("\nX---------------------X\n")
 
 print(pokemonData.iloc[1])
-print("X---------------------X")
+print("\nX---------------------X\n")
 
-print(pokemonData.loc[pokemonData["Legendary"] == True])
-print("X---------------------X")
+print(pokemonData.loc[(pokemonData["Legendary"] == True) & (pokemonData["HP"] > 100)])
+print("\nX---------------------X\n")
 
 #print(pokemonData.sort_values())
 
+pokemonData.loc[(pokemonData["Legendary"] == True) & (pokemonData["HP"] > 100),["Legendary"]] = "Too Legendary"
+print(pokemonData)
+
+#pokemonData.to_csv("newPoke.csv")
