@@ -9,24 +9,23 @@ def costFunction(w,b,x,y,m):
         cost += (lineEqn(w,b,x[i]) - y[i])**2
     return (cost/(2*m))
 
-def gradientCalc(w, b, x, y, m):
-    dj_dw, dj_db = np.zeros(len(x[0])), 0
+def gradientCalc(w, b, x, y, m,n):
+    dj_dw, dj_db = np.zeros(n), 0
     for i in range(m):
         prediction = lineEqn(w, b, x[i])
         dj_db += (prediction - y[i])
-        for j in range(len(x[0])):
+        for j in range(n):
             dj_dw[j] += (prediction - y[i]) * x[i][j]
-    return dj_dw, dj_db / m
+    return dj_dw/m, dj_db/m
 
 
-def gradientDescent(w,b,x,y,m,alpha,steps):
+def gradientDescent(w,b,x,y,m,n,alpha,steps):
     for i in range(steps):
         print("Step = ",i,"Cost = ",costFunction(w,b,x,y,m))
-        dj_dw,dj_db = gradientCalc(w,b,x,y,m)
-        for j in range(len(x[0])):
-            w[j] -= alpha*dj_dw[j]/m
+        dj_dw,dj_db = gradientCalc(w,b,x,y,m,n)
+        for j in range(n):
+            w[j] -= alpha*dj_dw[j]
         b -= alpha*dj_db
-        
 
 
 x = np.array([[2104, 5, 1, 45], [1416, 3, 2, 40], [852, 2, 1, 35]])
@@ -36,5 +35,6 @@ b = 785.1811367994083
 m = len(x)
 alpha = 0.0000001
 steps = 20
+n = len(x[0])
 
-gradientDescent(w,b,x,y,m,alpha,steps)
+gradientDescent(w,b,x,y,m,n,alpha,steps)
