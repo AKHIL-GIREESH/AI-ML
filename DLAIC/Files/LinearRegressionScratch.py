@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 def lineEqn(w,b,x):
     return (w*x + b)
@@ -19,10 +17,11 @@ def gradientCalc(w,b,x,y,m):
     return (dj_dw/m),(dj_db/m)
 
 def gradientDescent(w,b,x,y,m,alpha,steps):
-    print(costFunction(w,b,x,y,m))
-
-    dj_dw,dj_db = gradientCalc(w,b,x,y,m,alpha)
-    pass
+    for i in range(steps):
+        print("Step = ",i,"Cost = ",costFunction(w,b,x,y,m))
+        dj_dw,dj_db = gradientCalc(w,b,x,y,m)
+        w -= alpha*dj_dw
+        b -= alpha*dj_db
 
 
 x = np.array([1.0, 2.0])
@@ -30,7 +29,7 @@ y = np.array([300.0, 500.0])
 w = 0
 b = 0
 m = len(x)
-alpha = 8.0e-1
+alpha = 0.01
 steps = 20
 
-print(costFunction(w,b,x,y,m))
+gradientDescent(w,b,x,y,m,alpha,steps)
