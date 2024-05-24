@@ -3,10 +3,7 @@ require("dotenv").config();
 
 const genAI = new GoogleGenerativeAI(process.env.KEY);
 
-console.log("Hello World");
-
 async function run() {
-  // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
   const prompt = "Write a story about a magic backpack.";
