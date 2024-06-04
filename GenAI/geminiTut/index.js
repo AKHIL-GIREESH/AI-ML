@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.KEY);
 async function run() {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
-  const prompt = "Write a story about a magic backpack.";
+  const prompt = "Which is the best EV scooter company in India?";
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
