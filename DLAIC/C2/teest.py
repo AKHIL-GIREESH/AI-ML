@@ -40,11 +40,18 @@ def Cost(A):
     return cost
 
 
-def gradientSigmoid():
+def gradient(W2, B2, A2, A1):
+    dJ_dw = []
+    dJ_db = 0
+    m = A2.shape[0]
+    for i in range(m):
+        for i in range():
+            dJ_dw[i] = (A2[i][0]-Y[i])*A1[i][0]  # Here
     return
 
 
-def gradientDescend():
+def gradientDescend(W1, B1, W2, B2, A1, A2, cost):
+    dW2 = gradient(W2, B2, A2, A1)
     return
 
 
@@ -65,6 +72,8 @@ def start():
     W1, B1, W2, B2 = initWeights()
     cost, Z1, A1, Z2, A2 = forwardProp(W1, B1, W2, B2)
     print(cost)
+
+    gradient(W1, B1, W2, B2, A1, A2, cost)
 
 
 start()
