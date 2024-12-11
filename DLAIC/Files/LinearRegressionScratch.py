@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def lineEqn(w,b,x):
     return (np.dot(w,x) + b)
 

@@ -1,6 +1,14 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const fs = require("fs");
+const readline = require('readline');
 require("dotenv").config();
+
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 
 const genAI = new GoogleGenerativeAI(process.env.KEY);
 
@@ -9,12 +17,51 @@ const genAI = new GoogleGenerativeAI(process.env.KEY);
 async function Text2Text() {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
-  const prompt = "INFJ & INTJ compatibility";
+  let history = []
 
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const text = response.text();
-  console.log(text);
+  const chat = model.startChat({
+    history:history
+  })
+
+  rl.on('line', async (prompt) => {
+    if (prompt.trim().toLowerCase() === 'stop') {
+      console.log("Terminating...");
+      rl.close();
+      return;
+    }
+
+    console.log(prompt)
+
+    //const prompt = "INFJ & INTJ compatibility";
+
+    //const result = await model.generateContent(prompt);
+
+    const result = await chat.sendMessage(" Answer without any bold charcters"+prompt)
+    const response = await result.response;
+    const text = response.text();
+
+    // history.push({
+    //   role:"user",
+    //   parts:[
+    //     {text:prompt}
+    //   ]
+    // })
+
+    // history.push({
+    //   role:"model",
+    //   parts:[{text:text}]
+    // })
+
+    console.log(text+"\n\n");
+    console.log(history)
+  })
+
+  rl.on('close', () => {
+    console.log('Input stream closed.');
+    return
+  });
+
+  return
 }
 
 //Img/Text to Text
@@ -68,6 +115,6 @@ async function Text2Chat() {
   console.log(text);
 }
 
-//Text2Text();
+Text2Text();
 //Text_Img2Text();
-Text2Chat();
+//Text2Chat();
