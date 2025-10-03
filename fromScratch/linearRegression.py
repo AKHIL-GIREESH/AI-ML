@@ -6,7 +6,7 @@ def lineEqn(X,W,b):
 
 def costFunc(W,b,y,X,m):
     error = lineEqn(X,W,b) - y
-    return ((1/2*m)*np.sum(error ** 2))
+    return (1 / (2 * m)) * np.sum(error ** 2)
 
 def gradientCalc(W,b,y,X,m):
     error = lineEqn(X,W,b) - y
